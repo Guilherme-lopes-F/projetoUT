@@ -141,15 +141,7 @@ st.markdown("O app irá pré-processar automaticamente colunas char/bool e trein
 X_proc, y_enc, encoders, target_le = preprocess(df, TARGET_COL)
 
 test_size = st.slider("Tamanho do conjunto de teste (%)", 5, 50, 20)
-try:
-    X_train, X_test, y_train, y_test = train_test_split(
-        X_proc, y_enc, test_size=test_size/100.0, random_state=42, stratify=y_enc
-    )
-except ValueError:
-    X_train, X_test, y_train, y_test = train_test_split(
-        X_proc, y_enc, test_size=test_size/100.0, random_state=42
-    )
-    st.warning("⚠️ Stratify desativado automaticamente (uma ou mais classes têm poucas amostras).")
+X_train, X_test, y_train, y_test = train_test_split(X_proc, y_enc, test_size=test_size/100.0, random_state=42)
 
 
 n_estimators = st.number_input("Número de árvores (n_estimators)", min_value=10, max_value=1000, value=100, step=10)
